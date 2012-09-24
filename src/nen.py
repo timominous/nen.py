@@ -85,7 +85,7 @@ for dirname, dirnames, filenames in os.walk(librarypath):
 
 			martist = tag.getArtist().encode("utf8")
 			malbum = tag.getAlbum().encode("utf8")
-			msong = tag.getTitle().encode("utf8") + ""
+			msong = tag.getTitle().encode("utf8")
 
 			if not containsartist(artists, martist):
 				nartist = Artist(martist, [])
@@ -111,6 +111,12 @@ for dirname, dirnames, filenames in os.walk(librarypath):
 
 stdout.write("\n")
 stdout.flush()
+
+artists.sort(key=lambda artist: artist.name)
+for artist in artists:
+	artist.albums.sort(key=lambda album: album.title)
+	for album in artist.albums:
+		album.songs.sort()
 
 print "Generating " + filepath + " file..."
 
